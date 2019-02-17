@@ -49,14 +49,14 @@ def fetch_results(search):
 def add_to_banderconf(append_to_file):
     bandersnatch_conf = '/home/anton/Environments/bandersnatch/bandersnatch.conf'
 
-    if len(append_to_file) > 1:
-        for i in append_to_file:
-            if update_db(i):
-                with open(bandersnatch_conf, "a") as myfile:
-                    flash(i +' has been added', 'success')
-                    myfile.write('    ' + i + "\n")
-            else:
-                flash(i +' has already been added', 'warning')
+    for i in append_to_file:
+        if update_db(i):
+            with open(bandersnatch_conf, "a") as myfile:
+                flash(i +' has been added', 'success')
+                myfile.write('    ' + i + "\n")
+        else:
+            flash(i +' has already been added', 'warning')
+
 
 class SearchForm(FlaskForm):
     search = StringField('What pypi package are you looking for?', validators=[DataRequired(), Length(min=2, max=50)])
