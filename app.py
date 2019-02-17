@@ -57,14 +57,6 @@ def add_to_banderconf(append_to_file):
                     myfile.write('    ' + i + "\n")
             else:
                 flash(i +' has already been added', 'warning')
-    else:
-        append = append_to_file[0]
-        if update_db(append):
-            with open(bandersnatch_conf, "a") as myfile:
-                flash(append +' has been added', 'success')
-                myfile.write('    ' + append + "\n")
-        else:
-            flash(append +' has already been added', 'warning')
 
 class SearchForm(FlaskForm):
     search = StringField('What pypi package are you looking for?', validators=[DataRequired(), Length(min=2, max=50)])
