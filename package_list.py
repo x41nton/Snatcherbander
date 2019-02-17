@@ -29,25 +29,4 @@ def update_package_list():
 	conn.commit()
 	conn.close()
 
-def get_dependencies():
-	input = quote('flask') # https://docs.python.org/3/library/shlex.html#shlex.quote
-	pip_show = subprocess.Popen(['pip', 'show', input], stdout=subprocess.PIPE)
-	grep = subprocess.Popen(['grep', 'Requires'], stdin=pip_show.stdout,
-	                         stdout=subprocess.PIPE, stderr=subprocess.PIPE)
-
-	pip_show.stdout.close() # Allow proc1 to receive a SIGPIPE if proc2 exits.
-	out, err = grep.communicate()
-	output = str(out).strip('b\'Requires:').strip('\\n').lstrip()
-	split_result = output.split(', ')
-	count = len(split_result)
-	
-	for i in range(count):
-		print(split_result[i])
-		# Jinja2
-		# itsdangerous
-		# click
-		# Werkzeug
-
-
 update_package_list()
-#get_dependencies()
